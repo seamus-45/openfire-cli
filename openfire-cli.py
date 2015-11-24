@@ -13,8 +13,8 @@ Commands:
     users       List, add, update or delete users. Subscribe on groups. Manage lockouts and roster
     rooms       List, add, update or delete rooms. List room users or grant roles
     groups      List, add, update or delete groups
-    sessions    List or close user sessions
-    system      List, add, update or delete system properties. View concurrent sessions
+    sessions    List or close user sessions. View concurrent sessions
+    system      List, add, update or delete system properties
     messages    Send broadcast message or get count of unread messages of the user
 
 See 'openfire-cli.py <command> --help' for more information on a specific command.
