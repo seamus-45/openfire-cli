@@ -1,4 +1,5 @@
 #!/usr/bin/env python2
+# -*- coding: utf-8 -*-
 """Openfire RestAPI command line interface
 Usage:
     openfire-cli.py [--no-color] [--version] [--help] <command> [<args>...]
