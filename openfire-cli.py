@@ -102,7 +102,7 @@ Options:
     """
     from ofrestapi import Users
     from getpass import getpass
-    args = docopt(mod_users.__doc__, version=__version__, argv=argv)
+    args = docopt(mod.__doc__, version=__version__, argv=argv)
     api = Users(host, secret)
 
     # map subscription types
@@ -226,7 +226,7 @@ Options:
     """
     from ofrestapi import Muc
     from getpass import getpass
-    args = docopt(mod_rooms.__doc__, version=__version__, argv=argv)
+    args = docopt(mod.__doc__, version=__version__, argv=argv)
     api = Muc(host, secret)
 
     # next block of code is exists because:
@@ -340,7 +340,7 @@ Options:
     -h, --help                  Show this
     """
     from ofrestapi import Groups
-    args = docopt(mod_groups.__doc__, version=__version__, argv=argv)
+    args = docopt(mod.__doc__, version=__version__, argv=argv)
     api = Groups(host, secret)
     # actions
     if args['--get']:
@@ -375,7 +375,7 @@ Options:
     -h, --help          Show this
     """
     from ofrestapi import (Sessions, System)
-    args = docopt(mod_sessions.__doc__, version=__version__, argv=argv)
+    args = docopt(mod.__doc__, version=__version__, argv=argv)
     api = Sessions(host, secret)
     # actions
     if args['--list']:
@@ -410,7 +410,7 @@ Options:
     -h, --help          Show this
     """
     from ofrestapi import System
-    args = docopt(mod_system.__doc__, version=__version__, argv=argv)
+    args = docopt(mod.__doc__, version=__version__, argv=argv)
     api = System(host, secret)
     # actions
     if args['--list']:
@@ -441,7 +441,7 @@ Options:
 
     """
     from ofrestapi import Messages
-    args = docopt(mod_messages.__doc__, version=__version__, argv=argv)
+    args = docopt(mod.__doc__, version=__version__, argv=argv)
     api = Messages(host, secret)
     # actions
     if args['--send']:
