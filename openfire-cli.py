@@ -360,12 +360,12 @@ def mod_sessions(argv):
     """
 Usage:
     openfire-cli.py sessions --list
-    openfire-cli.py sessions --get <user>
-    openfire-cli.py sessions --close <user>
+    openfire-cli.py sessions --get <username>
+    openfire-cli.py sessions --close <username>
     openfire-cli.py sessions --concurrent
 
 Arguments:
-    <user>              The user name of the user or JID
+    <username>              The user name of the user or JID
 
 Options:
     -l, --list          List all sessions
@@ -381,9 +381,9 @@ Options:
     if args['--list']:
         result = api.get_sessions()
     elif args['--get']:
-        result = api.get_user_sessions(args['<user>'])
+        result = api.get_user_sessions(args['<username>'])
     elif args['--close']:
-        result = api.close_user_sessions(args['<user>'])
+        result = api.close_user_sessions(args['<username>'])
     elif args['--concurrent']:
         api = System(host, secret)
         result = api.get_concurrent_sessions()
