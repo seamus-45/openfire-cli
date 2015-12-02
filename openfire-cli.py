@@ -21,6 +21,8 @@ See 'openfire-cli.py <command> --help' for more information on a specific comman
 """
 from docopt import (docopt, DocoptExit)
 from config import (host, secret)
+from codecs import getwriter
+import sys
 
 
 __version__ = '0.0.1'
@@ -453,6 +455,10 @@ Options:
 
 
 if __name__ == '__main__':
+    # make encoding forced for pipe
+    if sys.stdout.encoding != 'UTF-8':
+        sys.stdout = getwriter('utf-8')(sys.stdout, 'strict')
+    # parse arguments
     args = docopt(__doc__, version=__version__, options_first=True)
     argv = [args['<command>']] + args['<args>']
     color = False if args['--no-color'] else True
