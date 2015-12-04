@@ -25,7 +25,7 @@ import sys
 try:
     from config import (host, secret)
 except:
-    print('Error, config.py does not exists.')
+    print('Error: config.py does not exists.')
     sys.exit(1)
 
 
