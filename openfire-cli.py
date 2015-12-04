@@ -20,9 +20,13 @@ Commands:
 See 'openfire-cli.py <command> --help' for more information on a specific command.
 """
 from docopt import (docopt, DocoptExit)
-from config import (host, secret)
 from codecs import getwriter
 import sys
+try:
+    from config import (host, secret)
+except:
+    print('Error, config.py does not exists.')
+    sys.exit(1)
 
 
 __version__ = '0.0.1'
