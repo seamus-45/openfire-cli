@@ -3,7 +3,7 @@ _openfirecli()
   local cur words cword modules commands options
   _init_completion -s || return
   # list for modules
-  modules=$(openfire-cli.py --help | sed -n '/^Commands/,/^$/p' | sed -e '1d;$d' | awk '{print $1}' | paste -d' ' -s)
+  modules=$(openfire-cli.py --help | sed -n '/^Modules/,/^$/p' | sed -e '1d;$d' | awk '{print $1}' | paste -d' ' -s)
   # list for commands by module
   commands=$(openfire-cli.py ${words[1]} 2>&1 | sed -n '/^Usage/,/^$/p' | sed -e '1d' | awk '{print $3}' | paste -d' ' -s)
 
