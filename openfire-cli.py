@@ -83,7 +83,7 @@ Arguments:
     <query>                     The search query. This act like the wildcard search %String%
     <jid>                       The jabber ID of the user
 
-Options:
+Commands:
     -g, --get                   View info about username
     -s, --search                List all users or search by query
     -a, --add                   Create a username
@@ -98,6 +98,9 @@ Options:
     --add-roster-item           Add roster item for username
     --update-roster-item        Update roster item for username
     --delete-roster-item        Delete roster item for username
+    -h, --help                  Show this
+
+Options:
     -p, --password=password     Specify password for username
     -W                          Prompt password from stdin
     -n, --name=name             The display name for the username
@@ -105,7 +108,6 @@ Options:
     --group=group               Add user to specified group. Can be specified multiple times
     --subscription=subscription Subscription of the user.
                                 One of: remove, none, to, from, both. [default: both]
-    -h, --help                  Show this
     """
     from ofrestapi import Users
     from getpass import getpass
@@ -191,7 +193,7 @@ Arguments:
     <jid>                       The jabber ID of the user
     <role>                      One of: owners, admins, members, outcasts
 
-Options:
+Commands:
     -g, --get                   Get chat room info
     -s, --search                List all chat rooms or search by query
     -w, --who                   List chat room participants
@@ -200,6 +202,9 @@ Options:
     -d, --delete                Delete a chat room
     --grant-role                Grant role to chat room user
     --revoke-role               Revoke role from chat room user
+    -h, --help                  Show this
+
+Options:
     -t, --type=type             Show only specified type of the rooms.
                                 One of: all, public. [default: public]
     --service=service           The name of the Group Chat Service. [default: conference]
@@ -229,7 +234,6 @@ Options:
     --outcast=jid               JID of the user with outcast affiliation.
                                 An outcast user is not allowed to join the room again.
                                 Can be specified multiple times
-    -h, --help                  Show this
     """
     from ofrestapi import Muc
     from getpass import getpass
@@ -338,7 +342,7 @@ Arguments:
     <group>                     The name of group
     <description>               Description of the group
 
-Options:
+Commands:
     -g, --get                   Get group info
     -l, --list                  List all groups
     -a, --add                   Create group
@@ -374,7 +378,7 @@ Usage:
 Arguments:
     <username>              The user name of the user or JID
 
-Options:
+Commands:
     -l, --list          List all sessions
     -g, --get           Get user sessions
     -c, --close         Close user sessions
@@ -409,7 +413,7 @@ Arguments:
     <key>               Key of the property
     <value>             Value of the property
 
-Options:
+Commands:
     -l, --list          List all system properties
     -g, --get           Get system property
     -u, --update        Update system property
@@ -441,7 +445,7 @@ Arguments:
     <message>           Message text to be send
     <jid>               Jabber ID of the user
 
-Options:
+Commands:
     -s, --send          Send a broadcast message to all online users
     -u, --unread        Get unread messages count
     -h, --help          Show this
