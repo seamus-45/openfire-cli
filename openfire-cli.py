@@ -2,14 +2,14 @@
 # -*- coding: utf-8 -*-
 """Openfire RestAPI command line interface
 Usage:
-    openfire-cli.py [--no-color] [--version] [--help] <command> [<args>...]
+    openfire-cli.py [--no-color] [--version] [--help] <module> [<args>...]
 
 Options:
     --no-color          Supress color output
     -v, --version       Print version and exit
     -h, --help          Show this
 
-Commands:
+Modules:
     users       List, add, update or delete users. Subscribe on groups. Manage lockouts and roster
     rooms       List, add, update or delete rooms. List room users or grant roles
     groups      List, add, update or delete groups
@@ -17,7 +17,7 @@ Commands:
     system      List, add, update or delete system properties
     messages    Send broadcast message or get count of unread messages of the user
 
-See 'openfire-cli.py <command> --help' for more information on a specific command.
+See 'openfire-cli.py <module> --help' for more information for a specific module.
 """
 from docopt import (docopt, DocoptExit)
 from codecs import getwriter
@@ -464,14 +464,14 @@ if __name__ == '__main__':
         sys.stdout = getwriter('utf-8')(sys.stdout, 'strict')
     # parse arguments
     args = docopt(__doc__, version=__version__, options_first=True)
-    argv = [args['<command>']] + args['<args>']
+    argv = [args['<module>']] + args['<args>']
     color = False if args['--no-color'] else True
-    if args['<command>'] in 'users rooms groups sessions system messages'.split():
-            mod_name = 'mod_{0}'.format(args['<command>'])
+    if args['<module>'] in 'users rooms groups sessions system messages'.split():
+            mod_name = 'mod_{0}'.format(args['<module>'])
             mod = locals()[mod_name]
             try:
                 mod(argv)
             except Exception as e:
                 print('{0}: {1}'.format(type(e).__name__, e.args[0]))
     else:
-        exit("'{0}' is not a openfire-cli.py command. See 'openfire-cli.py --help'.".format(args['<command>']))
+        exit("'{0}' is not a openfire-cli.py module. See 'openfire-cli.py --help'.".format(args['<module>']))
