@@ -76,7 +76,6 @@ Usage:
     openfire-cli.py users --add-roster-item <username> <jid> [--name=name --subscription=subscription] [--group=group]...
     openfire-cli.py users --update-roster-item <username> <jid> [--name=name --subscription=subscription] [--group=group]...
     openfire-cli.py users --delete-roster-item <username> <jid>
-    openfire-cli.py users --help
 
 Arguments:
     <username>                  The user name of the user
@@ -98,7 +97,6 @@ Commands:
     --add-roster-item           Add roster item for username
     --update-roster-item        Update roster item for username
     --delete-roster-item        Delete roster item for username
-    -h, --help                  Show this
 
 Options:
     -p, --password=password     Specify password for username
@@ -185,7 +183,6 @@ Usage:
     openfire-cli.py rooms --delete <room> [--service=service]
     openfire-cli.py rooms --grant-role <room> <jid> <role> [--service=service]
     openfire-cli.py rooms --revoke-role <room> <jid> <role> [--service=service]
-    openfire-cli.py rooms --help
 
 Arguments:
     <room>                      The room name
@@ -202,7 +199,6 @@ Commands:
     -d, --delete                Delete a chat room
     --grant-role                Grant role to chat room user
     --revoke-role               Revoke role from chat room user
-    -h, --help                  Show this
 
 Options:
     -t, --type=type             Show only specified type of the rooms.
@@ -348,7 +344,6 @@ Commands:
     -a, --add                   Create group
     -u, --update                Update group
     -d, --delete                Delete group
-    -h, --help                  Show this
     """
     from ofrestapi import Groups
     args = docopt(mod.__doc__, version=__version__, argv=argv)
@@ -383,7 +378,6 @@ Commands:
     -g, --get           Get user sessions
     -c, --close         Close user sessions
     --concurrent        Get concurrent cluster or local sessions
-    -h, --help          Show this
     """
     from ofrestapi import (Sessions, System)
     args = docopt(mod.__doc__, version=__version__, argv=argv)
@@ -418,7 +412,6 @@ Commands:
     -g, --get           Get system property
     -u, --update        Update system property
     -d, --delete        Delete system property
-    -h, --help          Show this
     """
     from ofrestapi import System
     args = docopt(mod.__doc__, version=__version__, argv=argv)
@@ -448,7 +441,6 @@ Arguments:
 Commands:
     -s, --send          Send a broadcast message to all online users
     -u, --unread        Get unread messages count
-    -h, --help          Show this
 
     """
     from ofrestapi import Messages
