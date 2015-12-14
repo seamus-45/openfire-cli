@@ -24,7 +24,7 @@ if (( ! $+_openfire_modules || !$+_openfire_commands || !$+_openfire_options ));
         # build commands cache
         for key in ${(k)_openfire_modules}; do
           _call_program openfire-commands openfire-cli.py $key -h | sed -n '/^Commands/,/^$/p' | while read -r line; do
-            [[ $line =~ '[^ ]+\s(--[^ ]+)\s+(.*)' ]] || continue
+            [[ $line =~ '(--[^ ]+)\s+(.*)' ]] || continue
             _openfire_commands[$key$match[1]]=${match[2]}
           done
         done
