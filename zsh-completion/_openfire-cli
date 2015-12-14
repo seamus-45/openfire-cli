@@ -1,0 +1,95 @@
+#compdef openfire-cli.py
+# KILL ME
+
+typeset -A opt_args
+local context state line curcontext="$curcontext"
+local ret=1
+
+if (( ! $+_openfire_modules || !$+_openfire_commands || !$+_openfire_options )); then
+  typeset -gA _openfire_modules _openfire_commands _openfire_options
+  if _cache_invalid openfire-modules || ! _retrieve_cache openfire-modules ; then
+    (){
+        # build modules cache
+        local line
+        _call_program openfire-modules openfire-cli.py -h | sed -n '/^Modules/,/^$/p' | while read -r line; do
+          [[ $line =~ '([^ ]+)\s+(.+)' ]] || continue
+          _openfire_modules[$match[1]]=${match[2]}
+        done
+        _store_cache openfire-modules _openfire_modules
+      }
+  fi
+
+  if _cache_invalid openfire-commands || ! _retrieve_cache openfire-commands ; then
+    (){
+        # build commands cache
+        for key in ${(k)_openfire_modules}; do
+          _call_program openfire-commands openfire-cli.py $key -h | sed -n '/^Commands/,/^$/p' | while read -r line; do
+            [[ $line =~ '[^ ]+\s(--[^ ]+)\s+(.*)' ]] || continue
+            _openfire_commands[$key$match[1]]=${match[2]}
+          done
+        done
+        _store_cache openfire-commands _openfire_commands
+    }
+  fi
+
+  if _cache_invalid openfire-options || ! _retrieve_cache openfire-options ; then
+    (){
+        # build options cache
+        typeset -A usage_cache options_cache
+        for key in ${(k)_openfire_modules}; do
+          if (( ! ${+usage_cache[$key]} )); then
+            usage_cache[$key]=$(_call_program openfire-commands openfire-cli.py $key -h | sed -n '/^Usage/,/^$/p')
+            options_cache[$key]=$(_call_program openfire-commands openfire-cli.py $key -h | sed -n '/^Options/,/^$/p')
+          fi
+          while read -r line; do
+            typeset -a values; typeset -H val desc
+            [[ $line =~ '(\s+[^ ]+){2}' ]] || continue
+            values=( $(echo ${${line##*$match[1]}//(<*>|-W|=[a-z\/]##|[][(),|.])/}) )
+            for val in $values; do
+              desc=$(echo $options_cache[$key] | grep -e "$val=" | sed -r 's/[^ ]*\s(--[^ ]+)\s+([A-Z]+.*)/\2/')
+              _openfire_options[$key${match[1]// /}$val]=${desc:3}
+              _store_cache openfire-options _openfire_options
+            done
+          done <<< $usage_cache[$key]
+        done
+      }
+  fi
+fi
+
+_arguments -C \
+  '--no-color[Supress color output]' \
+  '--version[Show version and exit]' \
+  '--help[Show help and exit]' \
+  '1: :->mods' \
+  '2: :->cmds' \
+  '*: :->opts' \
+  && ret=0
+
+case "$state" in
+  (mods)
+    local -a modules
+    for key in ${(k)_openfire_modules}; do
+      modules+="$key:${_openfire_modules[$key]}"
+    done
+    _describe -t modules 'module' modules "$@"
+    ;;
+  (cmds)
+    local -a commands
+    for key in ${(k)_openfire_commands}; do
+      [[ $key =~ "^$line[1]--" ]] || continue
+      commands+="--${key##*--}:${_openfire_commands[$key]}"
+    done
+    _describe -t commands 'command' commands "$@"
+    ;;
+  (opts)
+    local -a hints;
+    for key in ${(k)_openfire_options}; do
+      [[ $key =~ "^$line[1]$line[2]--" ]] || continue
+      hints+="--${key##*--}:${_openfire_options[$key]}"
+    done
+    _describe -t option 'option' hints "$@"
+    ;;
+esac
+
+return $ret
+
